@@ -29,7 +29,7 @@ public class Driver {
 	
 	for(int i = 0; i < numPhilosophers; i++)
 	{
-		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % numPhilosophers], i, rand.nextInt(20000), rand.nextInt(10000));
+		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % numPhilosophers], i, rand.nextInt(20), rand.nextInt(10));
 		philosophers[i].start();
 	}
 	

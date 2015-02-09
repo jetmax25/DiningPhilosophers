@@ -1,8 +1,9 @@
-
 public class Chopstick {
 
 	private int num;
 	private boolean flag = false;
+	private int personWaiting = -1;
+	private int anotherPersonWaiting = -1;
 	
 	public Chopstick(int num)
 	{
@@ -19,15 +20,29 @@ public class Chopstick {
 		//System.out.println("Philospher " + id + " put down the chopstick " + num);
 	}
 	
-	public synchronized boolean setFlag(){
+	public synchronized boolean setFlag(int id){
+		if(personWaiting >= 0)
+		{
+			if(id != personWaiting) {
+				anotherPersonWaiting = id;
+				return false;
+			}
+		}
+		
 		if(!flag){
 			flag = true;
 			return true;
 		}
-		else return false;
+		else{
+			personWaiting = id;
+			anotherPersonWaiting = -1;
+			return false;
+		}
 	}
 	
 	public void resetFlag(){
 		flag = false;
+		personWaiting = anotherPersonWaiting;
+		anotherPersonWaiting = -1;
 	}
 }
