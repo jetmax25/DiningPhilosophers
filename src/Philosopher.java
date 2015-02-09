@@ -24,26 +24,45 @@ public class Philosopher extends Thread{
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
 			System.out.println(id + " is now hungry");
-			synchronized(chopstick1){
-				synchronized(chopstick2){
-					
-					chopstick1.pickUp(id);
-					chopstick2.pickUp(id);
-					System.out.println(id + " is now eating");
-					try {
-						this.sleep(thinkTime);
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					chopstick1.putDown(id);
-					chopstick2.putDown(id);
-					System.out.println(id + " is now thinking");
-					}
+			while(!eat()){
+			}		
+		}
+		
+	}
+	
+	private boolean eat(){
+		if(chopstick1.setFlag()){
+			if(chopstick2.setFlag()){
+				
+				synchronized(chopstick1){
+					synchronized(chopstick2)
+					{
+						chopstick1.pickUp(id);
+						chopstick2.pickUp(id);
+						System.out.println(id + " is now eating");
+						try {
+							this.sleep(thinkTime);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						chopstick1.putDown(id);
+						chopstick2.putDown(id);
+						System.out.println(id + " is now thinking");
+						chopstick2.resetFlag();
+						}
+						chopstick1.resetFlag();
+				}
+			}
+			else{
+				chopstick1.resetFlag();
+				return false;
 			}
 		}
+		else{
+			return false;
+		}
+		return true;
 	}
-
 }

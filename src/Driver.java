@@ -20,7 +20,7 @@ public class Driver {
 	
 	for(int i = 0; i < 5; i++)
 	{
-		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % 5], i, rand.nextInt(1), rand.nextInt(1));
+		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % 5], i, rand.nextInt(20000), rand.nextInt(10000));
 		philosophers[i].start();
 	}
 	
