@@ -34,8 +34,8 @@ public class Philosopher extends Thread{
 	
 	@SuppressWarnings("static-access")
 	private boolean eat() throws InterruptedException{
-		if(chopstick1.setFlag()){
-			if(chopstick2.setFlag()){
+		if(chopstick1.setFlag(id)){
+			if(chopstick2.setFlag(id)){
 				
 				synchronized(chopstick1){
 					synchronized(chopstick2)

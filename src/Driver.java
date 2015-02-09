@@ -6,15 +6,8 @@ public class Driver {
 	
 	public static void main(String[] args){
 	
-	int numPhilosophers = 0;
-		if (args.length > 0) {
-		    try {
-		    	numPhilosophers = Integer.parseInt(args[0]);
-		    } catch (NumberFormatException e) {
-		        System.err.println("Argument" + args[0] + " must be an integer.");
-		        System.exit(1);
-		    }
-		}
+	int numPhilosophers = 3;
+	
 	
 	Random rand = new Random();
 	Philosopher[] philosophers = new Philosopher[numPhilosophers];
@@ -29,7 +22,7 @@ public class Driver {
 	
 	for(int i = 0; i < numPhilosophers; i++)
 	{
-		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % numPhilosophers], i, rand.nextInt(20000), rand.nextInt(10000));
+		philosophers[i] = new Philosopher(chopsticks[i], chopsticks[(i+1) % numPhilosophers], i, rand.nextInt(1), rand.nextInt(1));
 		philosophers[i].start();
 	}
 	
