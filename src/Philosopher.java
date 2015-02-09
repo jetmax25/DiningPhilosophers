@@ -14,24 +14,26 @@ public class Philosopher extends Thread{
 		chopstick2 = two; 
 	}
 	
+	@SuppressWarnings("static-access")
 	public void run(){
 
 		while(true)
 		{
 			try {
-				this.sleep(eatTime);
+				this.sleep(thinkTime);
+				System.out.println(id + " is now hungry");
+				while(!eat()){ }
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				return;
 			}
-			System.out.println(id + " is now hungry");
-			while(!eat()){
-			}		
+	
 		}
 		
 	}
 	
-	private boolean eat(){
+	@SuppressWarnings("static-access")
+	private boolean eat() throws InterruptedException{
 		if(chopstick1.setFlag()){
 			if(chopstick2.setFlag()){
 				
@@ -41,12 +43,10 @@ public class Philosopher extends Thread{
 						chopstick1.pickUp(id);
 						chopstick2.pickUp(id);
 						System.out.println(id + " is now eating");
-						try {
-							this.sleep(thinkTime);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
+						
+						this.sleep(eatTime);
+						
+						
 						chopstick1.putDown(id);
 						chopstick2.putDown(id);
 						System.out.println(id + " is now thinking");
